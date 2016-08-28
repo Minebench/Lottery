@@ -187,9 +187,11 @@ public class LotteryGame
 
     public int ticketsSold()
     {
-        int sold;
+        int sold = 0;
         final RandomCollection<LotteryEntry> players = getBoughtTickets();
-        sold = players.size();
+        for (LotteryEntry player : players.values()) {
+            sold += player.getTickets();
+        }
         return sold;
     }
 
