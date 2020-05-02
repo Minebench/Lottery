@@ -356,9 +356,26 @@ public class LotteryGame
         }
         else
         {
+            UUID jackpotId = new UUID(0, 0);
+            // is max number of tickets 0? If not, include empty tickets not sold.
+            if ( lConfig.getTicketsAvailable() > 0 && ticketsSold() < lConfig.getTicketsAvailable() )
+            {
+                int jackotTickets = lConfig.getTicketsAvailable() - ticketsSold();
+                players.add(jackotTickets, new LotteryEntry(jackpotId, "Jackpot", jackotTickets));
+            }
             LotteryEntry winner = players.next();
             double amount = winningAmount();
             int ticketsBought = winner.getTickets();
+
+            if (winner.getUUID().equals(jackpotId)) {
+                addToWinnerList( "Jackpot", amount, lConfig.useEconomy() ? Material.AIR : lConfig.getMaterial() );
+                lConfig.setLastwinner( "Jackpot" );
+                lConfig.setLastwinneramount( amount );
+                broadcastMessage( "NoWinnerRollover", Etc.formatCost( amount, lConfig ) );
+                clearAfterGettingWinner();
+                return true;
+            }
+
             if ( lConfig.useEconomy() )
             {
                 OfflinePlayer p = Bukkit.getOfflinePlayer( winner.getUUID() );
