@@ -1,5 +1,6 @@
 package net.erbros.lottery.events;
 
+import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -11,11 +12,11 @@ public class LotteryDrawEvent extends Event
     private UUID winner;
     private int ticketsBought;
     private double winnings;
-    private int material;
+    private Material material;
     private static final HandlerList handlers = new HandlerList();
     private String winnerName;
 
-    public LotteryDrawEvent( UUID winner, String winnerName, int ticketsBought, double winnings, int material )
+    public LotteryDrawEvent(UUID winner, String winnerName, int ticketsBought, double winnings, Material material )
     {
         this.winner = winner;
         this.winnerName = winnerName;
@@ -55,7 +56,7 @@ public class LotteryDrawEvent extends Event
         return winnings;
     }
 
-    public int getMaterial()
+    public Material getMaterial()
     {
         return material;
     }

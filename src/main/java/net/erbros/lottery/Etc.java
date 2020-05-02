@@ -34,9 +34,9 @@ public class Etc
         }
     }
 
-    public static String formatMaterialName( final int materialId )
+    public static String formatMaterialName( Material material )
     {
-        String rawMaterialName = Material.getMaterial( materialId ).toString();
+        String rawMaterialName = String.valueOf(material);
         rawMaterialName = rawMaterialName.toLowerCase( Locale.ENGLISH );
         // Large first letter.
         final String firstLetterCapital = rawMaterialName.substring( 0, 1 ).toUpperCase();

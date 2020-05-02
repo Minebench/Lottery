@@ -1,5 +1,6 @@
 package net.erbros.lottery;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class LotteryConfig
     private double hours;
     private long nextexec;
     private boolean useiConomy;
-    private int material;
+    private Material material;
     private double extraInPot;
     private boolean broadcastBuying;
     private int broadcastBuyingTime;
@@ -55,7 +56,7 @@ public class LotteryConfig
         hours = config.getDouble( "config.hours", 24 );
 
         useiConomy = config.getBoolean( "config.useiConomy", true );
-        material = config.getInt( "config.material", 266 );
+        material = Material.matchMaterial(config.getString( "config.material", "gold_ingot" ).toUpperCase());
         broadcastBuying = config.getBoolean( "config.broadcastBuying", true );
         broadcastBuyingTime = config.getInt( "config.broadcastBuyingTime", 120 );
         welcomeMessage = config.getBoolean( "config.welcomeMessage", true );
@@ -277,7 +278,7 @@ public class LotteryConfig
         return useiConomy;
     }
 
-    public int getMaterial()
+    public Material getMaterial()
     {
         return material;
     }

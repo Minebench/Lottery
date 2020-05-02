@@ -1,5 +1,6 @@
 package net.erbros.lottery;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -332,7 +333,7 @@ public class MainCommandExecutor implements CommandExecutor
             else
             {
                 winListPrice = split[1] + " " + Etc.formatMaterialName(
-                        Integer.parseInt( split[2] ) );
+                        Material.matchMaterial(split[2]) );
             }
             sender.sendMessage( ( i + 1 ) + ". " + split[0] + " " + winListPrice );
         }

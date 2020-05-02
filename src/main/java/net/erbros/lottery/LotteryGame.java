@@ -3,6 +3,7 @@ package net.erbros.lottery;
 import net.erbros.lottery.events.LotteryBuyTicketEvent;
 import net.erbros.lottery.events.LotteryDrawEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -234,7 +235,7 @@ public class LotteryGame
         {
             final String[] split = aClaimArray.split( ":" );
             final int claimAmount = Integer.parseInt( split[1] );
-            final int claimMaterial = Integer.parseInt( split[2] );
+            final Material claimMaterial = Material.matchMaterial(split[2]);
             player.getInventory().addItem( new ItemStack( claimMaterial, claimAmount ) );
             sendMessage( player, "PlayerClaim", Etc.formatMaterialName( claimMaterial ) );
         }
@@ -257,7 +258,7 @@ public class LotteryGame
         }
     }
 
-    public void addToClaimList( final UUID player, final int winningAmount, final int winningMaterial )
+    public void addToClaimList( final UUID player, final int winningAmount, final Material winningMaterial )
     {
         // Then first add new winner, and after that the old winners.
         try
@@ -273,7 +274,7 @@ public class LotteryGame
         }
     }
 
-    public void addToWinnerList( final String playerName, final Double winningAmount, final int winningMaterial )
+    public void addToWinnerList( final String playerName, final Double winningAmount, final Material winningMaterial )
     {
         // This list should be 10 players long.
         final ArrayList<String> winnerArray = new ArrayList<String>();
@@ -372,7 +373,7 @@ public class LotteryGame
                 plugin.getEconomy().depositPlayer( p, amount );
                 // Announce the winner:
                 broadcastMessage( "WinnerCongrat", winner.getName(), Etc.formatCost( amount, lConfig ), ticketsBought, lConfig.getPlural( "ticket", ticketsBought ) );
-                addToWinnerList( winner.getName(), amount, 0 );
+                addToWinnerList( winner.getName(), amount, Material.AIR );
 
                 double taxAmount = taxAmount();
                 if ( taxAmount() > 0 && lConfig.getTaxTarget().length() > 0 )
@@ -416,7 +417,7 @@ public class LotteryGame
 
             clearAfterGettingWinner();
 
-            int material = lConfig.useEconomy() ? -1 : lConfig.getMaterial();
+            Material material = lConfig.useEconomy() ? Material.AIR : lConfig.getMaterial();
             LotteryDrawEvent drawEvent = new LotteryDrawEvent( winner.getUUID(), winner.getName(), ticketsBought, amount, material );
             Bukkit.getServer().getPluginManager().callEvent( drawEvent );
         }
