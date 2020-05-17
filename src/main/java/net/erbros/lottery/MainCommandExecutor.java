@@ -326,7 +326,7 @@ public class MainCommandExecutor implements CommandExecutor
         for ( int i = 0; i < winnerArray.size(); i++ )
         {
             split = winnerArray.get( i ).split( ":" );
-            if ( split[2].equalsIgnoreCase( "0" ) )
+            if ( split[2].equalsIgnoreCase( "0" ) || split[2].equalsIgnoreCase( "AIR" ) )
             {
                 winListPrice = plugin.getEconomy().format( Double.parseDouble( split[1] ) );
             }
