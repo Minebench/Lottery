@@ -378,9 +378,9 @@ public class LotteryGame
                 addToWinnerList( "Jackpot", amount, lConfig.useEconomy() ? Material.AIR : lConfig.getMaterial() );
                 lConfig.setLastwinner( "Jackpot" );
                 lConfig.setLastwinneramount( amount );
-                lConfig.addExtraInPot(amount);
                 broadcastMessage( "NoWinnerRollover", Etc.formatCost( amount, lConfig ) );
                 clearAfterGettingWinner();
+                lConfig.addExtraInPot(amount);
                 return true;
             }
 
@@ -458,6 +458,7 @@ public class LotteryGame
         {
             lConfig.setExtraInPot( 0 );
         }
+        lConfig.setExtraInPot(lConfig.getJackpot());
         // Clear file.
         YamlConfiguration config = loadPlayersFile();
         config.set( "players", null );

@@ -28,6 +28,7 @@ public class LotteryConfig
     private boolean clearExtraInPot;
     private int maxTicketsEachUser;
     private int ticketsAvailable;
+    private double jackpot;
     private String lastwinner;
     private double lastwinneramount;
     private boolean buyingExtendDeadline;
@@ -67,6 +68,7 @@ public class LotteryConfig
         ticketsAvailable = config.getInt( "config.numberOfTicketsAvailable", 0 );
         nextexec = config.getLong( "config.nextexec" );
         cost = Etc.formatAmount( config.getDouble( "config.cost", 5 ), useiConomy );
+        jackpot = config.getDouble( "config.jackpot", 0 );
         lastwinner = config.getString( "config.lastwinner", "" );
         lastwinneramount = config.getDouble( "config.lastwinneramount", 0 );
         buyingExtendDeadline = config.getBoolean( "config.buyingExtend.enabled", true );
@@ -345,6 +347,10 @@ public class LotteryConfig
     public int getTicketsAvailable()
     {
         return ticketsAvailable;
+    }
+
+    public double getJackpot() {
+        return jackpot;
     }
 
     public String getLastwinner()
