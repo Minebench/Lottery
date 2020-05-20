@@ -364,6 +364,12 @@ public class LotteryGame
                 jackpotTickets = lConfig.getTicketsAvailable() - ticketsSold();
                 players.add(jackpotTickets, new LotteryEntry(jackpotId, "Jackpot", jackpotTickets));
             }
+
+            plugin.getLogger().info("Bought Tickets:");
+            for (LotteryEntry value : players.values()) {
+                plugin.getLogger().info(value.getName() + " " + value.getTickets());
+            }
+
             LotteryEntry winner = players.next();
             double amount = winningAmount();
             int ticketsBought = winner.getTickets();
