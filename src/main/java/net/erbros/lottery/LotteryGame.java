@@ -358,10 +358,11 @@ public class LotteryGame
         {
             UUID jackpotId = new UUID(0, 0);
             // is max number of tickets 0? If not, include empty tickets not sold.
+            int jackpotTickets = 0;
             if ( lConfig.getTicketsAvailable() > 0 && ticketsSold() < lConfig.getTicketsAvailable() )
             {
-                int jackotTickets = lConfig.getTicketsAvailable() - ticketsSold();
-                players.add(jackotTickets, new LotteryEntry(jackpotId, "Jackpot", jackotTickets));
+                jackpotTickets = lConfig.getTicketsAvailable() - ticketsSold();
+                players.add(jackpotTickets, new LotteryEntry(jackpotId, "Jackpot", jackpotTickets));
             }
             LotteryEntry winner = players.next();
             double amount = winningAmount();
@@ -371,6 +372,7 @@ public class LotteryGame
                 addToWinnerList( "Jackpot", amount, lConfig.useEconomy() ? Material.AIR : lConfig.getMaterial() );
                 lConfig.setLastwinner( "Jackpot" );
                 lConfig.setLastwinneramount( amount );
+                lConfig.addExtraInPot(amount);
                 broadcastMessage( "NoWinnerRollover", Etc.formatCost( amount, lConfig ) );
                 clearAfterGettingWinner();
                 return true;
@@ -425,8 +427,8 @@ public class LotteryGame
                 ticketsize += entry.getTickets();
             }
             broadcastMessage(
-                    "WinnerSummary", players.size(), lConfig.getPlural(
-                            "player", players.size() ), ticketsize, lConfig.getPlural( "ticket", ticketsize ) );
+                    "WinnerSummary", players.size() - jackpotTickets > 0 ? 1 : 0, lConfig.getPlural(
+                            "player", players.size()  - jackpotTickets > 0 ? 1 : 0), ticketsize - jackpotTickets, lConfig.getPlural( "ticket", ticketsize - jackpotTickets ) );
 
             // Add last winner to config.
             lConfig.setLastwinner( winner.getName() );
