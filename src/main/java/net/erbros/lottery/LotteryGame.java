@@ -433,8 +433,8 @@ public class LotteryGame
                 ticketsize += entry.getTickets();
             }
             broadcastMessage(
-                    "WinnerSummary", players.size() - jackpotTickets > 0 ? players.size() - jackpotTickets : 0, lConfig.getPlural(
-                            "player", players.size() - jackpotTickets > 0 ? players.size() - jackpotTickets : 0), ticketsize - jackpotTickets, lConfig.getPlural( "ticket", ticketsize - jackpotTickets ) );
+                    "WinnerSummary", jackpotTickets > 0 ? players.size() - 1 : players.size(), lConfig.getPlural(
+                            "player", jackpotTickets > 0 ? players.size() - 1 : players.size()), ticketsize - jackpotTickets, lConfig.getPlural( "ticket", ticketsize - jackpotTickets ) );
 
             // Add last winner to config.
             lConfig.setLastwinner( winner.getName() );
