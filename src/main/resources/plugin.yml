@@ -6,7 +6,8 @@ authors:
   - Erbros
   - KHobbits
   - Kukelekuuk00
-softDepend: [Vault]
+  - Phoenix616
+softdepend: [Vault]
 commands:
   lottery:
     description: Provides access to Permissions commands and information.
