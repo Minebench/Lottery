@@ -98,7 +98,7 @@ message:
     player: 'player'
     players: 'players'
     day: 'day'
-    day: 'days'
+    days: 'days'
     hour: 'hour'
     hours: 'hours'
     minute: 'minute'
